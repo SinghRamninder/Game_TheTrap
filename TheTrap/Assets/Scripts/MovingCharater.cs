@@ -10,7 +10,6 @@ public class MovingCharater : MonoBehaviour
     private bool isGrounded = true;
     //public Transform PlayerDesign;
     public Transform UpSpike;
-    public float rotateSpeed;
     public float UpSpikeSpeed;
     public GameObject[] UpSpikes;
     private int FallenSpike = 0;
@@ -45,9 +44,7 @@ public class MovingCharater : MonoBehaviour
 
     private void rotate(float angle)
     {
-        Quaternion startRotate = transform.rotation;
-        Quaternion endRotate = Quaternion.Euler(0,angle,0);
-        transform.rotation = Quaternion.Slerp(startRotate,endRotate,rotateSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(0, angle, 0);
 
     }
 
