@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 857967892}
   m_Layer: 0
   m_Name: Floor_Tile
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1021,6 +1021,11 @@ Transform:
   - {fileID: 857967889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1645436390 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2793279761948820086, guid: 72eeacd843bb7b3478dcab89556de2f6, type: 3}
+  m_PrefabInstance: {fileID: 1766745657}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1766745657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1029,6 +1034,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2896803934884675040, guid: 72eeacd843bb7b3478dcab89556de2f6, type: 3}
+      propertyPath: Animator
+      value: 
+      objectReference: {fileID: 1645436390}
+    - target: {fileID: 2896803934884675040, guid: 72eeacd843bb7b3478dcab89556de2f6, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1645436390}
+    - target: {fileID: 2896803934884675040, guid: 72eeacd843bb7b3478dcab89556de2f6, type: 3}
+      propertyPath: jumpForce
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2896803934884675040, guid: 72eeacd843bb7b3478dcab89556de2f6, type: 3}
       propertyPath: rotateSpeed
       value: 50
@@ -1072,6 +1089,10 @@ PrefabInstance:
     - target: {fileID: 5564266075812387263, guid: 72eeacd843bb7b3478dcab89556de2f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5757858079892379195, guid: 72eeacd843bb7b3478dcab89556de2f6, type: 3}
+      propertyPath: m_GravityScale
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8512347549254393506, guid: 72eeacd843bb7b3478dcab89556de2f6, type: 3}
       propertyPath: m_Name

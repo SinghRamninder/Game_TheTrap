@@ -8,6 +8,7 @@ public class MovingCharater : MonoBehaviour
     private Rigidbody2D rb;
     public float jumpForce;
     private bool isGrounded = true;
+    public Animator animator;
     //public Transform PlayerDesign;
     public Transform UpSpike;
     public float UpSpikeSpeed;
@@ -21,21 +22,25 @@ public class MovingCharater : MonoBehaviour
     private void Update()
     {
         Vector2 intPos = new Vector2(0, 0);
-        
+        animator.SetBool("Movement", false);
+
 
         if (Input.GetKey(KeyCode.D))
         {
             intPos.x = +1;
             rotate(0);
+            animator.SetBool("Movement", true);
         }
         if (Input.GetKey(KeyCode.A))
         {
             intPos.x = -1;
             rotate(180);
+            animator.SetBool("Movement", true);
         }
         if (Input.GetKey(KeyCode.Space) && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            animator.SetBool("Grounded", false);
         }
 
 
@@ -53,6 +58,7 @@ public class MovingCharater : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            animator.SetBool("Grounded", true);
         }
     }
 
