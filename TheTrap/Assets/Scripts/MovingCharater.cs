@@ -10,10 +10,10 @@ public class MovingCharater : MonoBehaviour
     private bool isGrounded = true;
     public Animator animator;
     //public Transform PlayerDesign;
-    public Transform UpSpike;
-    public float UpSpikeSpeed;
-    public GameObject[] UpSpikes;
-    private int FallenSpike = 0;
+    //public Transform UpSpike;
+    //public float UpSpikeSpeed;
+    //public GameObject[] UpSpikes;
+    //private int FallenSpike = 0;
 
     private void Start()
     {
@@ -62,6 +62,20 @@ public class MovingCharater : MonoBehaviour
         }
     }
 
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
+
+
+
+
+
     //private void OnTriggerEnter2D(Collider2D trigger)
     //{
     //    if (trigger.CompareTag("collision"))
@@ -73,18 +87,12 @@ public class MovingCharater : MonoBehaviour
     //    }
     //}
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-    }
 
-    private void OnTriggerEnter2D(Collider2D trigger)
-    {
+
+    //private void OnTriggerEnter2D(Collider2D trigger)
+    //{
         
-    }
+    //}
 
 
 }
