@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5564266075812387263}
   - component: {fileID: 1710931560815312882}
   - component: {fileID: 2793279761948820086}
-  - component: {fileID: 7934294371666357821}
   - component: {fileID: 5757858079892379195}
   - component: {fileID: 2896803934884675040}
   m_Layer: 0
@@ -109,41 +108,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!70 &7934294371666357821
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8512347549254393506}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.10733871, y: -0.0000007407985}
-  m_Size: {x: 1.1316422, y: 1.9194744}
-  m_Direction: 0
 --- !u!50 &5757858079892379195
 Rigidbody2D:
   serializedVersion: 4
@@ -185,7 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 2
-  UpSpike: {fileID: 0}
-  rotateSpeed: 3
-  UpSpikeSpeed: 0
-  UpSpikes: []
+  animator: {fileID: 0}
+  InvincibilityDuration: 0
+  Player: {fileID: 0}

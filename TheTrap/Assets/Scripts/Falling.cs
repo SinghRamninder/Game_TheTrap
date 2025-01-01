@@ -8,9 +8,13 @@ public class Falling : MonoBehaviour
     public float fallInterval = 1.0f;
     public float fallSpeed = 5.0f;
 
-    void Start()
+
+    private void OnTriggerEnter2D(Collider2D spikeTrigger)
     {
-        StartCoroutine(FallSpikesOneByOne());
+            if (spikeTrigger.gameObject.CompareTag("Player"))
+            {
+                StartCoroutine(FallSpikesOneByOne());
+            }
     }
 
     IEnumerator FallSpikesOneByOne()
