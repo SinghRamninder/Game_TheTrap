@@ -7,29 +7,32 @@ public class UpSpike : MonoBehaviour
     public float speed = 2f; 
     private bool isMoving = false;
     public float Position;
+    public GameObject FloorSpike;
 
+    
     private void OnTriggerEnter2D(Collider2D UpSpikeTrigger)
     {
         if (UpSpikeTrigger.gameObject.CompareTag("Player") && !isMoving)
         {
+            Transform FloorSpikePos = FloorSpike.transform;
             isMoving = true;
-            StartCoroutine(MoveSpike(new Vector3(transform.position.x, Position, transform.position.z)));
+            StartCoroutine(MoveSpike(new Vector3(FloorSpikePos.position.x, Position, FloorSpikePos.position.z)));
         }
     }
 
     private IEnumerator MoveSpike(Vector3 targetPosition)
     {
-        Vector3 startPosition = transform.position;
+        Transform FloorSpikePos = FloorSpike.transform;
 
         
-        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        while (Vector3.Distance(FloorSpikePos.position, targetPosition) > 0.01f)
         {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
+            FloorSpikePos.position = Vector3.Lerp(FloorSpikePos.position, targetPosition, speed * Time.deltaTime);
             yield return null;
         }
 
-        
-        transform.position = targetPosition;
+
+        FloorSpikePos.position = targetPosition;
 
         isMoving = false;
     }

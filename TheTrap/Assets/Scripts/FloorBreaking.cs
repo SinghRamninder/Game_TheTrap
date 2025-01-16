@@ -12,7 +12,6 @@ public class FloorBreaking : MonoBehaviour
         if (FloorBreaking.gameObject.CompareTag("Player"))
         {
             floorbreaking.SetBool("Hit", true);
-            Debug.Log("Working");
         }
     }
 }

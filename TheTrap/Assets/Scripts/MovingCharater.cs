@@ -1,31 +1,28 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 
     public class MovingCharater : MonoBehaviour
     {
         public float speed;
+        public float initSpeed;
         private Rigidbody2D rb;
         public float jumpForce;
-        private bool isGrounded = true;
+        public bool isGrounded = true;
         public Animator animator;
         private bool isInvincible = false;
         private SpriteRenderer SpriteRenderer;
         public float InvincibilityDuration;
         public GameObject Player;
-        private bool onSpike;
         private Collider2D playerCollider;
-
-        //public Transform PlayerDesign;
-        //public Transform UpSpike;
-        //public float UpSpikeSpeed;
-        //public GameObject[] UpSpikes;
-        //private int FallenSpike = 0;
-
         private SpriteRenderer spriteRenderer;
+        public Transform Block;
+        
         
 
         private void Start()
@@ -33,6 +30,7 @@ using UnityEngine;
             rb = GetComponent<Rigidbody2D>();
             SpriteRenderer = GetComponent<SpriteRenderer>();
             playerCollider = GetComponent<Collider2D>();
+            initSpeed = speed;
         }
         private void Update()
         {
@@ -42,7 +40,7 @@ using UnityEngine;
 
             if (Input.GetKey(KeyCode.D))
             {
-                intPos.x = +1;
+                intPos.x = 1;
                 rotate(0);
                 animator.SetBool("Movement", true);
             }
@@ -61,6 +59,11 @@ using UnityEngine;
 
             transform.position += (Vector3)intPos * speed * Time.deltaTime;
 
+        if (speed < initSpeed)
+        {
+            StartCoroutine(increasespeed());
+        }
+
         }
 
 
@@ -72,38 +75,65 @@ using UnityEngine;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Ground"))
+            if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("GroundBlock") || collision.gameObject.CompareTag("BreakingBlock_LVL1"))
             {
                 isGrounded = true;
                 animator.SetBool("Grounded", true);
             }
+        if (collision.gameObject.CompareTag("GroundBlock"))
+        {
+            transform.parent = collision.transform;
         }
+        if (collision.gameObject.CompareTag("BreakingBlock_LVL1"))
+        {
+            speed = 3f;
+        }
+        if (collision.gameObject.CompareTag("BreakingBlock_LVL1"))
+        {
+            StartCoroutine(BlinkingEffect());
+        }
+    }
 
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Ground"))
+            if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("GroundBlock") || collision.gameObject.CompareTag("BreakingBlock_LVL1"))
             {
                 isGrounded = false;
             }
+        if (collision.gameObject.CompareTag("GroundBlock"))
+        {
+            transform.parent = null;
         }
+        
+    }
 
     private void OnTriggerEnter2D(Collider2D invincibleTrigger)
     {
         if (invincibleTrigger.gameObject.CompareTag("Spikes") && !isInvincible){
-            onSpike = true;
-            StartCoroutine(BlinkingEffect(invincibleTrigger));
+            
+            StartCoroutine(BlinkingEffect());
+        }
+        if (invincibleTrigger.gameObject.CompareTag("DownSpike") && !isInvincible){
+            
+            StartCoroutine(BlinkingEffect());
+        }
+        if (invincibleTrigger.gameObject.CompareTag("DownSpike"))
+        {
+            speed = 5f;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D invincibleTrigger)
+    IEnumerator increasespeed()
     {
-        if (invincibleTrigger.gameObject.CompareTag("Spikes")){
-            onSpike= false;
-        }
+        while (speed < initSpeed)
+        {
+            speed += 0.007f;
+            yield return new WaitForSeconds(5f);
+        };
     }
 
-    IEnumerator BlinkingEffect(Collider2D spikeCollider)
+    IEnumerator BlinkingEffect()
     {
         isInvincible = true;
         Physics2D.IgnoreLayerCollision(7,8, true);
