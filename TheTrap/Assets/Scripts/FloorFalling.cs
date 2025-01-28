@@ -7,12 +7,20 @@ public class FloorFalling : MonoBehaviour
     public float speed = 2f;
     private bool isMoving = false;
 
+    private void Update()
+    {
+        if (transform.position.y < -2.2f)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D FloorBlock)
     {
         if (FloorBlock.gameObject.CompareTag("Player") && !isMoving)
         {
             isMoving = true;
-            StartCoroutine(FallFloor(new Vector3(transform.position.x, -5.56f , transform.position.z)));
+            StartCoroutine(FallFloor(new Vector3(transform.position.x, -10.56f , transform.position.z)));
         }
     }
 

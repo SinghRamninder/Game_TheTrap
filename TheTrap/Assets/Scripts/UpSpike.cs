@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class UpSpike : MonoBehaviour
 {
     public float speed = 2f; 
     private bool isMoving = false;
     public float Position;
     public GameObject FloorSpike;
+    public UnityEngine.Rendering.Universal.Light2D targetLight;
 
     
     private void OnTriggerEnter2D(Collider2D UpSpikeTrigger)
@@ -17,6 +19,7 @@ public class UpSpike : MonoBehaviour
             Transform FloorSpikePos = FloorSpike.transform;
             isMoving = true;
             StartCoroutine(MoveSpike(new Vector3(FloorSpikePos.position.x, Position, FloorSpikePos.position.z)));
+            targetLight.enabled = true;
         }
     }
 
