@@ -7,15 +7,29 @@ public class MazeGenerator : MonoBehaviour
 {
     public int rows = 22;
     public int columns = 12;
+    private int maxplates;
     private bool[,] maze;
     public Tilemap tilemap;
     public TileBase[] wall;
+    public GameObject plateprefab;
+    public Transform tilemapparent;
 
     private void Start()
     {
         maze = new bool[rows, columns];
+        maxplates = Random.Range(10, rows);
         mazeGenerator();
         DrawMaze();
+    }
+
+    private void Update()
+    {
+        GameObject[] plates = GameObject.FindGameObjectsWithTag("Plate");
+
+        if (plates.Length < 15)
+        {
+            DrawPlates();
+        }
     }
 
     void mazeGenerator()
@@ -113,11 +127,25 @@ public class MazeGenerator : MonoBehaviour
                     Vector3Int position = new Vector3Int(r, c, 0);
                     tilemap.SetTile(position, wall[i]);
                 }
-                //else
-                //{
-                //    Vector3Int position = new Vector3Int(r, c, 0);
-                //    tilemap.SetTile(position, path);
-                //}
+            }
+        }
+
+        DrawPlates();
+
+        
+    }
+
+    void DrawPlates()
+    {
+        for (int i = 0; i < rows + 5; i++)
+        {
+            int r = Random.Range(0, rows);
+            int c = Random.Range(0, columns);
+
+            if (maze[r, c])
+            {
+                Vector3 worldpas = tilemap.CellToWorld(new Vector3Int(r, c, 0)) + new Vector3(0.9f, 0.9f, 0);
+                Instantiate(plateprefab, worldpas, Quaternion.identity, tilemapparent);
             }
         }
     }

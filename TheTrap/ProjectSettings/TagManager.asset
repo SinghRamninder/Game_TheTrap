@@ -12,6 +12,7 @@ TagManager:
   - ControlsRev
   - BreakingBlock_LVL1
   - DownSpike
+  - Plate
   layers:
   - Default
   - TransparentFX
