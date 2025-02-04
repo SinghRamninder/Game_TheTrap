@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEditor.Rendering;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
     public class MovingCharater : MonoBehaviour
     {
@@ -86,10 +86,8 @@ using UnityEngine;
         }
         if (collision.gameObject.CompareTag("BreakingBlock_LVL1"))
         {
-            speed = 3f;
-        }
-        if (collision.gameObject.CompareTag("BreakingBlock_LVL1"))
-        {
+            HealthManager.Instance.Damage(1f);
+            speed = 4f;
             StartCoroutine(BlinkingEffect());
         }
     }
@@ -111,16 +109,25 @@ using UnityEngine;
     private void OnTriggerEnter2D(Collider2D invincibleTrigger)
     {
         if (invincibleTrigger.gameObject.CompareTag("Spikes") && !isInvincible){
-            
+
+            HealthManager.Instance.Damage(0.5f);
             StartCoroutine(BlinkingEffect());
         }
         if (invincibleTrigger.gameObject.CompareTag("DownSpike") && !isInvincible){
-            
+
+            HealthManager.Instance.Damage(0.5f);
+            speed = 5f;
             StartCoroutine(BlinkingEffect());
         }
-        if (invincibleTrigger.gameObject.CompareTag("DownSpike"))
+        if (invincibleTrigger.gameObject.CompareTag("DamageColliderFull"))
         {
-            speed = 5f;
+            HealthManager.Instance.Damage(3f);
+        }
+        if (invincibleTrigger.gameObject.CompareTag("SceneChange"))
+        {
+            int currentsceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextscene = currentsceneIndex + 1;
+            SceneManager.LoadScene(nextscene);
         }
     }
 
@@ -128,7 +135,7 @@ using UnityEngine;
     {
         while (speed < initSpeed)
         {
-            speed += 0.007f;
+            speed += 0.009f;
             yield return new WaitForSeconds(5f);
         };
     }

@@ -68,17 +68,20 @@ public class Camera_movement : MonoBehaviour
             
         }
 
-        if (SpikeTriggercollider.IsTouching(Playercollider))
+        if (SpikeTriggercollider != null)
         {
-            end = false;
-        }
-
-        foreach (var groundCollider in groundColliders)
-        {
-            if (lastspikecollider.IsTouching(groundCollider))
+            if (SpikeTriggercollider.IsTouching(Playercollider))
             {
-                end = true;
-                break;
+                end = false;
+            }
+
+            foreach (var groundCollider in groundColliders)
+            {
+                if (lastspikecollider.IsTouching(groundCollider))
+                {
+                    end = true;
+                    break;
+                }
             }
         }
 

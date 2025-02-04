@@ -13,6 +13,8 @@ TagManager:
   - BreakingBlock_LVL1
   - DownSpike
   - Plate
+  - SceneChange
+  - DamageColliderFull
   layers:
   - Default
   - TransparentFX
