@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
+using System;
 
 public class HealthManager : MonoBehaviour
 {
@@ -10,10 +12,10 @@ public class HealthManager : MonoBehaviour
 
     private float currenthealth = 3;
     private float currentlives = 3;
-    public SpriteRenderer spriteRenderer;
-    public Sprite[] heartsprites;
     public TMP_Text lives;
     public GameObject canvas;
+    public Image heartimage;
+    public Sprite[] heartsprites;
 
     private void Awake()
     {
@@ -33,7 +35,7 @@ public class HealthManager : MonoBehaviour
     {
         if (currenthealth > 0)
         {
-            spriteRenderer.sprite = heartsprites[System.Convert.ToInt32(currenthealth * 2)];
+            heartimage.sprite = heartsprites[Convert.ToInt32(currenthealth * 2)];
             lives.text = "x" + currentlives.ToString();
         }
         else if (currentlives >0)
@@ -54,5 +56,17 @@ public class HealthManager : MonoBehaviour
     public void Damage(float damage)
     {
         currenthealth -= damage;
+    }
+    public void Heal(float heal)
+    {
+        currenthealth += heal;
+    }
+    public void DecreaseLife(float decrease)
+    {
+        currentlives -= decrease;
+    }
+    public void IncreaseLife(float increase)
+    {
+        currentlives += increase;
     }
 }

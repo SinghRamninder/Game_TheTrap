@@ -9,6 +9,7 @@ public class PressurePlate : MonoBehaviour
     public float blinktime;
     private bool blinking = true;
     private bool collided = false;
+  
 
     void Start()
     {
@@ -60,7 +61,9 @@ public class PressurePlate : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collided = true;
+            Destroy(GetComponent<BoxCollider2D>());
             platelight.enabled = true;
+            LVL3_RandomEvents.instance.RandomEvent();
         }
     }
 }
