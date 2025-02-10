@@ -16,6 +16,8 @@ public class HealthManager : MonoBehaviour
     public GameObject canvas;
     public Image heartimage;
     public Sprite[] heartsprites;
+    private bool gameover = true;
+    [SerializeField] Animator deathtransition;
 
     private void Awake()
     {
@@ -33,6 +35,15 @@ public class HealthManager : MonoBehaviour
 
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "GameOver" || SceneManager.GetActiveScene().name == "GameCompleted")
+        {
+            canvas.SetActive(false);
+        }
+        else
+        {
+            canvas.SetActive(true);
+        }
+
         if (currenthealth > 0)
         {
             heartimage.sprite = heartsprites[Convert.ToInt32(currenthealth * 2)];
@@ -41,15 +52,19 @@ public class HealthManager : MonoBehaviour
         else if (currentlives >0)
         {
             currentlives -= 1f;
-            currenthealth = 3f;
-            int activescene = SceneManager.GetActiveScene().buildIndex;
-            Physics2D.IgnoreLayerCollision(7, 8, false);
-            SceneManager.LoadScene(activescene);
+            if (currentlives != 0)
+            {
+                currenthealth = 3f;
+                Physics2D.IgnoreLayerCollision(7, 8, false);
+                Pushatstart();
+            }
+            
         }
 
-        if (currentlives == 0)
+        if (currentlives == 0 && gameover)
         {
-            Debug.Log("GameOver....");
+            SceneChange.Instance.Over();
+            gameover = false;
         }
     }
 
@@ -68,5 +83,25 @@ public class HealthManager : MonoBehaviour
     public void IncreaseLife(float increase)
     {
         currentlives += increase;
+    }
+
+    public void restartgame()
+    {
+        currentlives = 3;
+        currenthealth = 3;
+        gameover = true;
+    }
+
+    private void Pushatstart()
+    {
+        StartCoroutine(atStart());
+    }
+
+    IEnumerator atStart()
+    {
+        deathtransition.SetTrigger("End");
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        deathtransition.SetTrigger("Start");
     }
 }

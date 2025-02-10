@@ -149,10 +149,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  initSpeed: 0
   jumpForce: 2
+  isGrounded: 1
   animator: {fileID: 2793279761948820086}
   InvincibilityDuration: 0
   Player: {fileID: 8512347549254393506}
+  Block: {fileID: 0}
 --- !u!61 &6653791822338927947
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -185,7 +188,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1009299, y: -0.008619726}
+  m_Offset: {x: -0.06498018, y: -0.6985586}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -196,5 +199,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.060385, y: 1.885032}
+  m_Size: {x: 0.5570883, y: 0.50515425}
   m_EdgeRadius: 0

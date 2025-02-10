@@ -125,9 +125,7 @@ using UnityEngine.SceneManagement;
         }
         if (invincibleTrigger.gameObject.CompareTag("SceneChange"))
         {
-            int currentsceneIndex = SceneManager.GetActiveScene().buildIndex;
-            int nextscene = currentsceneIndex + 1;
-            SceneManager.LoadScene(nextscene);
+            SceneChange.Instance.Scenechange();
         }
     }
 

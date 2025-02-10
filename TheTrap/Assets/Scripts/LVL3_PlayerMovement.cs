@@ -88,4 +88,12 @@ public class LVL3_PlayerMovement : MonoBehaviour
         Physics2D.IgnoreLayerCollision(7, 8, false);
         collisionignored = false;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("SceneChange"))
+        {
+            SceneChange.Instance.Scenechange();
+        }
+    }
 }
