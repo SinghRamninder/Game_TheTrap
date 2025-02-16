@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LVL3_PlayerMovement : MonoBehaviour
 {
@@ -11,14 +12,26 @@ public class LVL3_PlayerMovement : MonoBehaviour
     private bool canMove = true;
     private bool collisionignored = false;
     public bool platetrigger = false;
+    public int totalplates;
+    public TMP_Text platescount;
+    private bool dashcountset = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        
     }
 
     void Update()
     {
+        if (totalplates == 0 && !dashcountset)
+        {
+            GameObject[] plates = GameObject.FindGameObjectsWithTag("Plate");
+            totalplates = plates.Length - 5;
+            platescount.text = totalplates.ToString();
+            dashcountset = true;
+        }
+        
         moveDirection = Vector2.zero;
         transform.rotation = Quaternion.Euler(0, 0, 0);
 
@@ -41,8 +54,12 @@ public class LVL3_PlayerMovement : MonoBehaviour
                 moveDirection.y = -1;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && canMove)
+
+            if (Input.GetKeyDown(KeyCode.Space) && canMove && totalplates != 0)
             {
+                totalplates -= 1;
+                platescount.text = totalplates.ToString();
+
                 if (!collisionignored)
                 {
                     Physics2D.IgnoreLayerCollision(7, 8, true);
