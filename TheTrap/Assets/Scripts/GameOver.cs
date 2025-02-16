@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameOver : MonoBehaviour
 {
+    public AudioSource musicSource;
+    public AudioClip audiosource;
+
 
     private void Start()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        musicSource.clip = audiosource;
+        //musicSource.time = 1.6f;
+        musicSource.Play();
     }
 
     public void restart()

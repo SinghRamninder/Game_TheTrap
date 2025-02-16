@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -28,10 +29,22 @@ public class Camera_movement : MonoBehaviour
 
     private void Start()
     {
-        lastspikecollider = lastSpike.GetComponent<BoxCollider2D>();
-        groundColliders = ground.GetComponents<BoxCollider2D>();
-        Playercollider = Player.GetComponent<BoxCollider2D>();
-        SpikeTriggercollider = SpikeTrigger.GetComponent<BoxCollider2D>();
+        if (lastSpike != null)
+        {
+            lastspikecollider = lastSpike.GetComponent<BoxCollider2D>();
+        }
+        if (ground != null)
+        {
+            groundColliders = ground.GetComponents<BoxCollider2D>();
+        }
+        if (Player != null)
+        {
+            Playercollider = Player.GetComponent<BoxCollider2D>();
+        }
+        if (SpikeTrigger != null)
+        {
+            SpikeTriggercollider = SpikeTrigger.GetComponent<BoxCollider2D>();
+        }
 
     }
 

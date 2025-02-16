@@ -5,9 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private bool clicked = false;
     public void Play()
     {
-        SceneChange.Instance.Scenechange();
+        if (!clicked)
+        {
+            SceneChange.Instance.Scenechange();
+            clicked = true;
+        }
     }
 
     public void Quit()

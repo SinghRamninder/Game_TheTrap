@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 
     public class MovingCharater : MonoBehaviour
     {
+        public static MovingCharater Instance { get; private set; }
+
         public float speed;
         public float initSpeed;
         private Rigidbody2D rb;
@@ -34,17 +36,18 @@ using UnityEngine.SceneManagement;
         }
         private void Update()
         {
+
             Vector2 intPos = new Vector2(0, 0);
             animator.SetBool("Movement", false);
 
 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 intPos.x = 1;
                 rotate(0);
                 animator.SetBool("Movement", true);
             }
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 intPos.x = -1;
                 rotate(180);
@@ -52,6 +55,7 @@ using UnityEngine.SceneManagement;
             }
             if (Input.GetKey(KeyCode.Space) && isGrounded)
             {
+                AudioManager.Instance.jumpsound(0.3f);
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 animator.SetBool("Grounded", false);
             }
@@ -86,6 +90,7 @@ using UnityEngine.SceneManagement;
         }
         if (collision.gameObject.CompareTag("BreakingBlock_LVL1"))
         {
+            AudioManager.Instance.sfxplay(AudioManager.Instance.spikeHit, 1f);
             HealthManager.Instance.Damage(1f);
             speed = 4f;
             StartCoroutine(BlinkingEffect());
@@ -110,17 +115,20 @@ using UnityEngine.SceneManagement;
     {
         if (invincibleTrigger.gameObject.CompareTag("Spikes") && !isInvincible){
 
+            AudioManager.Instance.sfxplay(AudioManager.Instance.spikeHit, 1f);
             HealthManager.Instance.Damage(0.5f);
             StartCoroutine(BlinkingEffect());
         }
         if (invincibleTrigger.gameObject.CompareTag("DownSpike") && !isInvincible){
 
+            AudioManager.Instance.sfxplay(AudioManager.Instance.spikeHit, 1f);
             HealthManager.Instance.Damage(0.5f);
             speed = 5f;
             StartCoroutine(BlinkingEffect());
         }
         if (invincibleTrigger.gameObject.CompareTag("DamageColliderFull"))
         {
+            AudioManager.Instance.sfxplay(AudioManager.Instance.LifeDecrease, 1f);
             HealthManager.Instance.Damage(3f);
         }
         if (invincibleTrigger.gameObject.CompareTag("SceneChange"))

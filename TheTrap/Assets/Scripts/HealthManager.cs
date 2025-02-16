@@ -44,6 +44,15 @@ public class HealthManager : MonoBehaviour
             canvas.SetActive(true);
         }
 
+        if (currenthealth > 3)
+        {
+            currenthealth = 3;
+        }
+        if (currentlives > 3)
+        {
+            currentlives = 3;
+        }
+
         if (currenthealth > 0)
         {
             heartimage.sprite = heartsprites[Convert.ToInt32(currenthealth * 2)];
@@ -61,7 +70,7 @@ public class HealthManager : MonoBehaviour
             
         }
 
-        if (currentlives == 0 && gameover)
+        if (currentlives <= 0 && gameover)
         {
             SceneChange.Instance.Over();
             gameover = false;
@@ -92,9 +101,49 @@ public class HealthManager : MonoBehaviour
         gameover = true;
     }
 
-    private void Pushatstart()
+    public void Pushatstart()
     {
         StartCoroutine(atStart());
+    }
+
+    public bool hpfull()
+    {
+        if (currenthealth == 3)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool lifefull()
+    {
+        if (currentlives == 3)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public float savehealth()
+    {
+        return currenthealth;
+    }
+
+    public float savelife()
+    {
+        return currentlives;
+    }
+
+    public void sethealth(float health)
+    {
+        currenthealth = health;
+    }
+
+    public void setlife(float life)
+    {
+        currentlives = life;
     }
 
     IEnumerator atStart()

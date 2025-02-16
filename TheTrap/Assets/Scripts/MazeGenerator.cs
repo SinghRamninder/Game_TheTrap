@@ -131,8 +131,6 @@ public class MazeGenerator : MonoBehaviour
         }
 
         DrawPlates();
-
-        
     }
 
     void DrawPlates()

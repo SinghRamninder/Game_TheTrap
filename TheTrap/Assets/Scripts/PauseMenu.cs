@@ -10,6 +10,8 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject PausePanel;
     private bool isPaused = false;
+    private bool lvlfailed = false;
+    private bool musicpaused = false;
 
     private void Awake()
     {
@@ -33,7 +35,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name != "GameOver" && SceneManager.GetActiveScene().name != "GameCompleted")
+        if (SceneManager.GetActiveScene().name != "GameOver" && SceneManager.GetActiveScene().name != "GameCompleted" && !lvlfailed)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -44,12 +46,22 @@ public class PauseMenu : MonoBehaviour
 
             if (isPaused)
             {
+                if (!musicpaused)
+                {
+                    AudioManager.Instance.pausemusic();
+                    musicpaused = true;
+                }
                 Time.timeScale = 0f;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
             else
             {
+                if (musicpaused)
+                {
+                    AudioManager.Instance.unpausemusic();
+                    musicpaused = false;
+                }
                 Time.timeScale = 1f;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -74,5 +86,19 @@ public class PauseMenu : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    public void lvlfailedtrue()
+    {
+        lvlfailed = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void lvlfailedfalse()
+    {
+        lvlfailed = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

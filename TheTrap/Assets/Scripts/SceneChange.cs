@@ -43,6 +43,11 @@ public class SceneChange : MonoBehaviour
         HealthManager.Instance.restartgame();
         scenetransition.SetTrigger("End");
         yield return new WaitForSeconds(1);
+        Physics2D.IgnoreLayerCollision(7, 8, false);
+        if (SceneManager.GetActiveScene().name != "GameOver" && SceneManager.GetActiveScene().name != "GameCompleted")
+        {
+            AudioManager.Instance.destroy();
+        }
         SceneManager.LoadScene("Level 1");
         scenetransition.SetTrigger("Start");
     }
@@ -51,6 +56,7 @@ public class SceneChange : MonoBehaviour
     {
         scenetransition.SetTrigger("End");
         yield return new WaitForSeconds(1);
+        AudioManager.Instance.destroy();
         SceneManager.LoadScene("GameOver");
         scenetransition.SetTrigger("Start");
     }

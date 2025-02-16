@@ -13,19 +13,20 @@ public class BlockDestroy : MonoBehaviour
     private float time;
     private bool isTriggered = false;
 
-
+    //Detecting Player Collision with Platform
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && !isTriggered)
         {
             time = 1;
             isTriggered = true;
-            StartCoroutine(vibandfall());
+            StartCoroutine(vibandfall()); //Initiating Platform Vibration and Fall
         }
     }
 
     private IEnumerator vibandfall()
     {
+        //Platform Vibration
         while (time > 0 && time < totalTime)
         {
             if (movingRight)
@@ -46,6 +47,7 @@ public class BlockDestroy : MonoBehaviour
             yield return null;
         }
 
+        //Platform Fall
         if (totalTime - time <= 0.01f)
         {
             Rigidbody2D rigidbody2D = gameObject.AddComponent<Rigidbody2D>();

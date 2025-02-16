@@ -27,3 +27,4 @@ public class Floor_Rotate : MonoBehaviour
         transform.position = new Vector3(x, y, transform.position.z);
     }
 }
+

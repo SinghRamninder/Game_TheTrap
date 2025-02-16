@@ -10,6 +10,7 @@ public class LVL3_PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private bool canMove = true;
     private bool collisionignored = false;
+    public bool platetrigger = false;
 
     void Start()
     {
@@ -19,37 +20,44 @@ public class LVL3_PlayerMovement : MonoBehaviour
     void Update()
     {
         moveDirection = Vector2.zero;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
 
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (!platetrigger)
         {
-            moveDirection.x = 1;
-        }
-        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            moveDirection.x = -1;
-        }
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            moveDirection.y = 1;
-        }
-        else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            moveDirection.y = -1;
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                moveDirection.x = 1;
+            }
+            else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                moveDirection.x = -1;
+            }
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                moveDirection.y = 1;
+            }
+            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                moveDirection.y = -1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && canMove)
+            {
+                if (!collisionignored)
+                {
+                    Physics2D.IgnoreLayerCollision(7, 8, true);
+                    StartCoroutine(collisionstop());
+                }
+
+                if (moveDirection != Vector2.zero)
+                {
+                    StartCoroutine(MoveOneTile(moveDirection.normalized));
+                    AudioManager.Instance.jumpsound(0.3f);
+                }
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canMove)
-        {
-            if (!collisionignored)
-            {
-                Physics2D.IgnoreLayerCollision(7, 8, true);
-                StartCoroutine(collisionstop());
-            }
-            
-            if (moveDirection != Vector2.zero)
-            {
-                StartCoroutine(MoveOneTile(moveDirection.normalized));
-            }
-        }
+        
     }
 
     void FixedUpdate()
@@ -94,6 +102,7 @@ public class LVL3_PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("SceneChange"))
         {
             SceneChange.Instance.Scenechange();
+            AudioManager.Instance.destroy();
         }
     }
 }
